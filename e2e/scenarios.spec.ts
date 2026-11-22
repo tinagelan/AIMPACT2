@@ -19,14 +19,14 @@ test("duplicate SaaS: free report hides money, paid report shows the saving", as
   await expect(page).toHaveURL(/wizard/);
 
   // Team
-  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByRole("button", { name: "Next", exact: true }).click();
   await page.getByTestId("add-employee").click();
   const row = page.getByTestId("employee-row").first();
   await row.locator("select").first().selectOption("account_manager");
 
   // Software (step 4)
-  await page.getByRole("button", { name: "Next" }).click();
-  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByRole("button", { name: "Next", exact: true }).click();
+  await page.getByRole("button", { name: "Next", exact: true }).click();
   for (const [tool, cost] of [["asana", "1200"], ["monday", "1500"]] as const) {
     await page.getByTestId("add-software").click();
     const sw = page.getByTestId("software-row").last();
@@ -42,11 +42,58 @@ test("duplicate SaaS: free report hides money, paid report shows the saving", as
 
   // Free tier: hours visible, money locked
   await expect(page.getByTestId("tile-direct")).toHaveText("🔒");
-  await expect(page.getByText(/Cancel Asana/)).toBeVisible();
+  await expect(page.getByTestId("rec-title").filter({ hasText: /Cancel Asana/ })).toBeVisible();
 
   // Unlock (mock payment)
   await page.getByTestId("unlock-link").click();
   await page.getByTestId("buy").click();
   await expect(page).toHaveURL(/report/);
   await expect(page.getByTestId("tile-direct")).toHaveText("₪1,200/month");
+});
+
+/** Deleting a diagnosis: confirm dialog, animated removal, gone after reload, report URL 404s. */
+test("delete a diagnosis from My diagnoses", async ({ page }) => {
+  await signIn(page, `e2e-del-${Date.now()}@example.test`);
+  for (const name of ["Keep Ltd", "Delete Ltd"]) {
+    await page.goto("/en/app/new");
+    await page.locator('input[name="orgName"]').fill(name);
+    await page.getByRole("button", { name: "Start the diagnosis" }).click();
+    await expect(page).toHaveURL(/wizard/);
+  }
+  const reportUrl = page.url().replace(/wizard.*$/, "report");
+
+  await page.goto("/en/app");
+  const cards = page.getByTestId("diagnosis-card");
+  await expect(cards).toHaveCount(2);
+  const target = cards.filter({ hasText: "Delete Ltd" });
+
+  // Cancel keeps it
+  await target.getByTestId("delete-diagnosis").click();
+  await expect(page.getByTestId("delete-dialog")).toBeVisible();
+  await page.getByRole("button", { name: "Cancel" }).click();
+  await expect(page.getByTestId("delete-dialog")).toBeHidden();
+  await expect(cards).toHaveCount(2);
+
+  // Confirm deletes, with a visible deleting/removing phase and a toast
+  await target.getByTestId("delete-diagnosis").click();
+  await page.getByTestId("confirm-delete").click();
+  await expect(page.getByTestId("delete-toast")).toContainText("Delete Ltd");
+  await expect(cards).toHaveCount(1);
+  await expect(cards.first()).toContainText("Keep Ltd");
+
+  await page.reload();
+  await expect(page.getByTestId("diagnosis-card")).toHaveCount(1);
+  const res = await page.goto(reportUrl);
+  expect(res?.status()).toBe(404);
+});
+
+/** Regression: rapid repeated submits of the new-diagnosis form create only one diagnosis. */
+test("double-clicking Start creates a single diagnosis", async ({ page }) => {
+  await signIn(page, `e2e-dbl-${Date.now()}@example.test`);
+  await page.goto("/en/app/new");
+  await page.locator('input[name="orgName"]').fill("Double Click Ltd");
+  await page.getByTestId("submit").dblclick();
+  await expect(page).toHaveURL(/wizard/);
+  await page.goto("/en/app");
+  await expect(page.getByTestId("diagnosis-card")).toHaveCount(1);
 });

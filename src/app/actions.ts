@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { analyze, ENGINE_VERSION } from "@/engine/analyze";
@@ -105,6 +106,25 @@ export async function toggleImplemented(id: string, recommendationId: string): P
   await db.implementedRecommendation.create({ data: { diagnosisId: id, recommendationId } });
   await track("recommendation_implemented", { userId: owned.user.id, diagnosisId: id, props: { recommendationId } });
   return { implemented: true };
+}
+
+/**
+ * Permanently deletes a diagnosis the signed-in user owns, with its saved reports and
+ * "implemented" marks (cascade). The organization row goes too once it has no other
+ * diagnoses. Payment records are kept on purpose (financial history), and analytics
+ * events stay as anonymous counts.
+ */
+export async function deleteDiagnosis(id: string): Promise<{ ok: boolean }> {
+  const owned = await getOwnedDiagnosis(id);
+  if (!owned) return { ok: false };
+  const orgId = owned.diagnosis.orgId;
+  await db.$transaction(async (tx) => {
+    await tx.diagnosis.delete({ where: { id } });
+    if ((await tx.diagnosis.count({ where: { orgId } })) === 0) await tx.organization.delete({ where: { id: orgId } });
+  });
+  await track("diagnosis_deleted", { userId: owned.user.id, props: { tier: owned.diagnosis.tier, status: owned.diagnosis.status } });
+  revalidatePath("/[locale]/app", "page");
+  return { ok: true };
 }
 
 /** Simulator: persist decisions + settings (paid tier only). */

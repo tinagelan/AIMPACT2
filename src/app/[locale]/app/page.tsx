@@ -1,8 +1,8 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Badge, Card } from "@/components/ui";
 import { Link, redirect } from "@/i18n/navigation";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { DiagnosisList } from "./DiagnosisList";
 
 export default async function Dashboard({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -25,27 +25,15 @@ export default async function Dashboard({ params }: { params: Promise<{ locale: 
           {t("new")}
         </Link>
       </div>
-      {diagnoses.length === 0 && <p className="text-muted">{t("empty")}</p>}
-      <div className="grid gap-3">
-        {diagnoses.map((d) => (
-          <Card key={d.id} className="flex flex-wrap items-center gap-3">
-            <div className="flex-1">
-              <div className="font-semibold">{d.org.name}</div>
-              <div className="text-sm text-muted">{tv(d.org.vertical as never)}</div>
-            </div>
-            <Badge tone={d.status === "completed" ? "money" : "neutral"}>{t(d.status as "in_progress" | "completed")}</Badge>
-            <Badge tone={d.tier === "paid" ? "brand" : "neutral"}>{t(d.tier as "paid" | "free")}</Badge>
-            <Link href={`/diagnosis/${d.id}/wizard`} className="text-sm text-brand underline">
-              {t("continue")}
-            </Link>
-            {d.status === "completed" && (
-              <Link href={`/diagnosis/${d.id}/report`} className="text-sm font-medium text-brand underline">
-                {t("report")}
-              </Link>
-            )}
-          </Card>
-        ))}
-      </div>
+      <DiagnosisList
+        items={diagnoses.map((d) => ({
+          id: d.id,
+          orgName: d.org.name,
+          verticalLabel: tv(d.org.vertical as never),
+          status: d.status === "completed" ? "completed" : "in_progress",
+          tier: d.tier === "paid" ? "paid" : "free",
+        }))}
+      />
     </div>
   );
 }

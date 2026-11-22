@@ -3,6 +3,8 @@ import { defineConfig } from "@playwright/test";
 export default defineConfig({
   testDir: "e2e",
   timeout: 120_000,
+  // The dev server compiles each route on first visit, which can take several seconds.
+  expect: { timeout: 20_000 },
   use: { baseURL: "http://localhost:3000", locale: "en-US" },
   webServer: { command: "npm run dev", url: "http://localhost:3000", reuseExistingServer: true, timeout: 120_000 },
 });
