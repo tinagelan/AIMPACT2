@@ -227,7 +227,8 @@
     "implemented": "Implemented",
     "editAnswers": "Edit answers",
     "openQuestions": "Open questions",
-    "employee": "Employee"
+    "employee": "Employee",
+    "timeOnly": "Time savings only — not counted as money. Confirm a position reduction or a revenue redirect in the simulator to see financial ROI."
   },
   "simulator": {
     "title": "ROI simulator",

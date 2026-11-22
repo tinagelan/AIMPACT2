@@ -17,6 +17,7 @@ export function SummaryTiles({ report, months }: { report: ViewReport; months: n
   const { totals, locked } = report;
   const lock = "🔒";
   const be = totals.roi.breakEvenMonths;
+  const timeOnly = totals.roi.monthlyFinancialBenefit === 0 && totals.timeSavedHours > 0;
   return (
     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
       <Tile tone="money" label={t("directSavings")} help={t("directSavingsHelp")} value={locked ? lock : `${formatNis(totals.directSavingsNis)}${tc("perMonth")}`} testId="tile-direct" />
@@ -27,8 +28,16 @@ export function SummaryTiles({ report, months }: { report: ViewReport; months: n
         <>
           <Tile label={t("investment")} value={formatNis(totals.oneTimeNis)} />
           <Tile label={t("monthlyCost")} value={`${formatNis(totals.monthlyCostNis)}${tc("perMonth")}`} />
-          <Tile label={t("roi", { months })} value={totals.roi.roiPct === null ? t("noInvestment") : `${totals.roi.roiPct.toLocaleString("en-US")}%`} />
-          <Tile label={t("breakEven")} value={be === null ? t("noPayback") : be === 0 ? t("immediate") : t("months", { value: be })} />
+          {timeOnly ? (
+            <div className="sm:col-span-2">
+              <Tile tone="time" label={t("roi", { months })} value={<span className="text-base text-time">{t("timeOnly")}</span>} />
+            </div>
+          ) : (
+            <>
+              <Tile label={t("roi", { months })} value={totals.roi.roiPct === null ? t("noInvestment") : `${totals.roi.roiPct.toLocaleString("en-US")}%`} />
+              <Tile label={t("breakEven")} value={be === null ? t("noPayback") : be === 0 ? t("immediate") : t("months", { value: be })} />
+            </>
+          )}
         </>
       )}
     </div>
@@ -51,6 +60,15 @@ function Tile({ label, value, help, tone, testId }: { label: string; value: Reac
 export function ImpactEffortMatrix({ recs }: { recs: Recommendation[] }) {
   const t = useTranslations("report");
   const render = useMsg();
+  // Relative positioning: spread points over the actual range of scores in this report,
+  // so they don't all bunch in one corner. Quadrant lines are the midpoint of that range.
+  const scale = (vals: number[]) => {
+    const lo = Math.min(...vals);
+    const hi = Math.max(...vals);
+    return (v: number) => (hi === lo ? 50 : 10 + ((v - lo) / (hi - lo)) * 80);
+  };
+  const x = scale(recs.map((r) => r.effortScore));
+  const y = scale(recs.map((r) => r.impactScore));
   return (
     <div className="relative aspect-[2/1] w-full rounded-md border border-line bg-bg" dir="ltr">
       <div className="absolute inset-x-0 top-1/2 border-t border-dashed border-line" />
@@ -62,7 +80,7 @@ export function ImpactEffortMatrix({ recs }: { recs: Recommendation[] }) {
           key={r.id}
           title={render(r.title)}
           className="absolute flex h-6 w-6 -translate-x-1/2 translate-y-1/2 items-center justify-center rounded-full bg-brand text-xs font-bold text-brand-ink"
-          style={{ left: `${Math.min(95, Math.max(5, r.effortScore))}%`, bottom: `${Math.min(92, Math.max(5, r.impactScore))}%` }}
+          style={{ left: `${x(r.effortScore)}%`, bottom: `${y(r.impactScore)}%` }}
         >
           {i + 1}
         </span>

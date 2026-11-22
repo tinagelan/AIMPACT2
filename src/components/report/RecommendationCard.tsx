@@ -39,10 +39,39 @@ function Chip({ tone, label, value }: { tone: "money" | "time" | "avoid"; label:
   );
 }
 
-export function RoiLine({ roi, costs, months }: { roi: Recommendation["roi"]; costs: Recommendation["costs"]; months: number }) {
+export function RoiLine({
+  roi,
+  costs,
+  months,
+  timeOnly,
+}: {
+  roi: Recommendation["roi"];
+  costs: Recommendation["costs"];
+  months: number;
+  /** No money benefit, only freed hours: a financial ROI of −100% would mislead. */
+  timeOnly?: boolean;
+}) {
   const t = useTranslations("report");
   const tc = useTranslations("common");
   const be = roi.breakEvenMonths;
+  if (timeOnly) {
+    return (
+      <dl className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm sm:grid-cols-4">
+        <div>
+          <dt className="text-xs text-muted">{t("investment")}</dt>
+          <dd><Num>{formatNis(costs.oneTimeNis)}</Num></dd>
+        </div>
+        <div>
+          <dt className="text-xs text-muted">{t("monthlyCost")}</dt>
+          <dd><Num>{formatNis(costs.monthlyNis)}{tc("perMonth")}</Num></dd>
+        </div>
+        <div className="col-span-2">
+          <dt className="text-xs text-muted">{t("roi", { months })}</dt>
+          <dd className="text-time">{t("timeOnly")}</dd>
+        </div>
+      </dl>
+    );
+  }
   return (
     <dl className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm sm:grid-cols-4">
       <div>
@@ -105,7 +134,7 @@ export function RecommendationCard({
       </div>
       {!locked && (
         <div className="mt-3 border-t border-line pt-3">
-          <RoiLine roi={r.roi} costs={r.costs} months={months} />
+          <RoiLine roi={r.roi} costs={r.costs} months={months} timeOnly={r.roi.monthlyFinancialBenefit === 0 && r.benefits.timeSavedHours > 0} />
           {r.severanceExposure && r.severanceExposure.max > 0 && (
             <p className="mt-2 text-sm text-avoid">
               {t("severance")}: <Num>{formatNis(r.severanceExposure.min)}–{formatNis(r.severanceExposure.max)}</Num>
