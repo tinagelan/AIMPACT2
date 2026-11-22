@@ -1,0 +1,145 @@
+// SQLite for local development (no Docker/Postgres on this machine).
+// To move to Postgres: set provider = "postgresql" and DATABASE_URL, then `prisma migrate dev`.
+// The schema avoids SQLite-only features: no enums, JSON stored as String.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String         @id @default(cuid())
+  email      String         @unique
+  locale     String         @default("he")
+  createdAt  DateTime       @default(now())
+  sessions   Session[]
+  orgs       Organization[]
+  events     Event[]
+  payments   Payment[]
+}
+
+model LoginToken {
+  id        String   @id @default(cuid())
+  email     String
+  tokenHash String   @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  tokenHash String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model Organization {
+  id         String      @id @default(cuid())
+  ownerId    String
+  owner      User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  name       String
+  vertical   String
+  createdAt  DateTime    @default(now())
+  diagnoses  Diagnosis[]
+}
+
+model Diagnosis {
+  id          String       @id @default(cuid())
+  orgId       String
+  org         Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  /// Validated BusinessProfile JSON (src/lib/profileSchema.ts). Never contains raw uploaded files.
+  profileJson String
+  step        Int          @default(0)
+  status      String       @default("in_progress") // in_progress | completed
+  /// "free" | "paid"
+  tier        String       @default("free")
+  startedAt   DateTime     @default(now())
+  completedAt DateTime?
+  updatedAt   DateTime     @updatedAt
+  reports     Report[]
+  implemented ImplementedRecommendation[]
+}
+
+model Report {
+  id            String    @id @default(cuid())
+  diagnosisId   String
+  diagnosis     Diagnosis @relation(fields: [diagnosisId], references: [id], onDelete: Cascade)
+  engineVersion String
+  /// Snapshot of inputs + outputs so a report is reproducible.
+  inputJson     String
+  outputJson    String
+  confidence    String
+  createdAt     DateTime  @default(now())
+}
+
+model ImplementedRecommendation {
+  id               String    @id @default(cuid())
+  diagnosisId      String
+  diagnosis        Diagnosis @relation(fields: [diagnosisId], references: [id], onDelete: Cascade)
+  recommendationId String
+  markedAt         DateTime  @default(now())
+
+  @@unique([diagnosisId, recommendationId])
+}
+
+model CatalogTool {
+  id                String    @id
+  name              String
+  primaryCapability String
+  capabilitiesJson  String
+  pricingModel      String
+  usdPerSeatMonth   Float
+  usdFlatMonth      Float?
+  pricingUrl        String
+  lastVerifiedAt    DateTime?
+  hebrewSupport     Boolean   @default(false)
+  isAI              Boolean   @default(false)
+  automatesJson     String    @default("{}")
+  setupHours        Float     @default(0)
+  complexity        Int       @default(1)
+  updatedAt         DateTime  @updatedAt
+  proposals         PriceProposal[]
+}
+
+/// Price changes suggested by the verification job; applied only after an admin approves.
+model PriceProposal {
+  id              String      @id @default(cuid())
+  toolId          String
+  tool            CatalogTool @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  usdPerSeatMonth Float?
+  usdFlatMonth    Float?
+  evidence        String
+  status          String      @default("pending") // pending | approved | rejected
+  createdAt       DateTime    @default(now())
+}
+
+model Payment {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  diagnosisId String
+  provider    String
+  amountNis   Int
+  status      String
+  createdAt   DateTime @default(now())
+}
+
+/// Product analytics for KPIs (completion rate, time-to-value, conversion).
+model Event {
+  id          String   @id @default(cuid())
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  diagnosisId String?
+  name        String
+  propsJson   String   @default("{}")
+  createdAt   DateTime @default(now())
+
+  @@index([name, createdAt])
+}

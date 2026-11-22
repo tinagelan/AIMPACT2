@@ -1,0 +1,527 @@
+{
+  "common": {
+    "appName": "AImpact",
+    "tagline": "Efficiency decisions backed by numbers",
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "Saved",
+    "saveError": "Could not save",
+    "next": "Next",
+    "back": "Back",
+    "add": "Add",
+    "remove": "Remove",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "language": "עברית",
+    "nis": "₪{value}",
+    "perMonth": "/month",
+    "hours": "{value} h",
+    "hoursPerMonth": "{value} h/month",
+    "locked": "Locked",
+    "unlock": "Unlock full analysis",
+    "yes": "Yes",
+    "no": "No",
+    "unknown": "Not sure",
+    "notLegalAdvice": "Estimates only — not legal, labor-law or tax advice. Verify severance and Section 14 with your accountant or lawyer.",
+    "finish": "Finish",
+    "dashboard": "My diagnoses",
+    "pricing": "Pricing",
+    "admin": "Admin"
+  },
+  "landing": {
+    "title": "Where is your business losing time and money?",
+    "subtitle": "A guided diagnosis for businesses with 5–30 employees. Get a prioritized plan with real costs, P&L savings and payback — not a slide deck.",
+    "cta": "Start a free diagnosis",
+    "p1t": "Honest numbers",
+    "p1b": "Freed hours are shown as hours. They become money only when you actually reduce a position or redirect the time to revenue work.",
+    "p2t": "Not just AI",
+    "p2b": "Sometimes the answer is cancelling a duplicate subscription or changing a workflow. We recommend what fits, not what's trendy.",
+    "p3t": "No sensitive files required",
+    "p3b": "Complete the whole diagnosis from a questionnaire. Salary ranges are fine. Uploaded files are deleted right after reading.",
+    "p4t": "First insight in under 10 minutes",
+    "p4b": "Industry benchmarks pre-fill the hard estimates — you only confirm or adjust."
+  },
+  "login": {
+    "title": "Sign in or create an account",
+    "email": "Work email",
+    "submit": "Send me a sign-in link",
+    "sent": "Check your email for a sign-in link (valid for 15 minutes).",
+    "devLink": "Development mode — open the link directly:",
+    "invalid": "This link is invalid or expired. Please request a new one."
+  },
+  "dashboard": {
+    "title": "My diagnoses",
+    "new": "New diagnosis",
+    "empty": "No diagnoses yet.",
+    "continue": "Continue",
+    "report": "View report",
+    "in_progress": "In progress",
+    "completed": "Completed",
+    "paid": "Full analysis",
+    "free": "Free"
+  },
+  "onboarding": {
+    "title": "Let's start",
+    "orgName": "Business name",
+    "vertical": "Industry",
+    "goal": "What do you want to find out?",
+    "goalPlaceholder": "e.g. Should I hire another employee or streamline the service department?",
+    "privacyTitle": "Your data, your control",
+    "privacy1": "No file uploads are required — the questionnaire alone produces a full report.",
+    "privacy2": "Salaries can be entered as ranges.",
+    "privacy3": "Uploaded files are read in memory and deleted immediately; only the fields you confirm are stored.",
+    "privacy4": "Salary figures are never sent to AI models.",
+    "start": "Start the diagnosis"
+  },
+  "wizard": {
+    "stepOf": "Step {current} of {total}",
+    "steps": {
+      "business": "Business profile",
+      "team": "Team & headcount",
+      "bottlenecks": "Bottlenecks",
+      "tech": "Software & digital vendors",
+      "enrich": "Optional: files & description",
+      "clarify": "Clarifications"
+    },
+    "business": {
+      "employeeCount": "Number of employees",
+      "hint": "We use your industry to pre-fill typical time splits. You can change everything."
+    },
+    "team": {
+      "hint": "Add each role. Exact salaries give the most accurate results, but ranges or \"skip\" are fine — skipped salaries use an industry benchmark and lower the confidence score.",
+      "role": "Role",
+      "title": "Title (optional)",
+      "scope": "Job scope %",
+      "salaryMode": "Gross salary",
+      "exact": "Exact",
+      "range": "Range",
+      "skip": "Skip",
+      "salary": "Monthly gross (₪)",
+      "min": "From",
+      "max": "To",
+      "tenure": "Tenure (years)",
+      "section14": "Section 14 applies?",
+      "section14Help": "Section 14 of the Severance Pay Law: monthly pension contributions replace severance pay. Your payroll provider knows.",
+      "revenueFacing": "Sales / service role",
+      "addEmployee": "Add employee",
+      "duplicate": "Duplicate",
+      "planHire": "I'm considering hiring someone",
+      "hireRole": "Role of the new hire",
+      "hireSalary": "Expected monthly gross (₪)",
+      "hireScope": "Scope %",
+      "hireHours": "Hours/week of work the hire would absorb",
+      "hireProcesses": "Main tasks of the new hire"
+    },
+    "bottlenecks": {
+      "hint": "Where does the team spend time on manual or repetitive work? We pre-filled typical values for your industry — confirm or adjust.",
+      "prefill": "Pre-fill from industry benchmarks",
+      "process": "Process",
+      "hours": "Team hours / week",
+      "people": "People involved",
+      "role": "Mostly done by",
+      "pain": "Pain (1–5)",
+      "benchmark": "Benchmark — confirm",
+      "confirmed": "Confirmed",
+      "confirm": "Confirm",
+      "add": "Add bottleneck",
+      "needTeam": "Add your team first so we can pre-fill benchmarks."
+    },
+    "tech": {
+      "hint": "List software subscriptions and digital services (SaaS only — not accounting or law firms).",
+      "tool": "Tool",
+      "custom": "Other (not in list)",
+      "name": "Name",
+      "category": "What it does",
+      "seats": "Paid seats",
+      "activeSeats": "Seats in use",
+      "cost": "Monthly cost (₪)",
+      "usage": "How much is it used?",
+      "add": "Add software"
+    },
+    "enrich": {
+      "hint": "Optional. Skip this step if you prefer not to share files.",
+      "templates": "Download a template, fill it in, and upload it:",
+      "tplEmployees": "Team template (CSV)",
+      "tplSoftware": "Software template (CSV)",
+      "upload": "Upload CSV or Excel",
+      "uploaded": "Imported {count} rows. The file was not stored.",
+      "uploadError": "Could not read the file: {error}",
+      "freeText": "Or describe the business in your own words",
+      "freeTextPlaceholder": "e.g. Our two coordinators spend most mornings scheduling client meetings by phone, and we pay for both Zoom and Teams…",
+      "analyze": "Extract details",
+      "analyzing": "Reading…",
+      "suggestions": "We found these details — add the ones that are correct:",
+      "accept": "Add",
+      "noAi": "Natural-language analysis is not configured (no API key). Please use the forms.",
+      "aiNote": "Only your text is sent to the AI model — never salary data. The AI does not compute any numbers."
+    },
+    "clarify": {
+      "hint": "A few answers will make the report more precise.",
+      "none": "No open questions — you're ready for the report.",
+      "revenuePerHour": "Revenue per sales/service hour (₪)",
+      "generate": "See the report"
+    }
+  },
+  "report": {
+    "title": "Diagnostic report",
+    "generated": "Generated {date}",
+    "summary": "Executive summary",
+    "confidence": "Confidence",
+    "confidenceHelp": "How much of the analysis is based on your real data versus ranges and industry benchmarks.",
+    "improve": "What would raise the confidence",
+    "directSavings": "P&L savings",
+    "directSavingsHelp": "Actual expenses that stop",
+    "avoidedCost": "Avoided cost",
+    "avoidedCostHelp": "Planned costs that are no longer needed (not a P&L reduction)",
+    "timeSaved": "Hours freed",
+    "timeSavedHelp": "Time — not money, unless you reduce a position or redirect it to revenue",
+    "revenue": "Revenue capacity",
+    "revenueHelp": "Only for hours redirected to sales/service with a known value per hour",
+    "investment": "One-time cost",
+    "monthlyCost": "New monthly cost",
+    "roi": "ROI ({months} months)",
+    "breakEven": "Break-even",
+    "months": "{value} months",
+    "immediate": "Immediate",
+    "noPayback": "No financial payback",
+    "noInvestment": "No investment",
+    "bottleneckMap": "Where the time goes",
+    "directions": "General directions",
+    "plan": "Prioritized plan",
+    "matrix": "Impact vs. effort",
+    "impact": "Impact",
+    "effort": "Effort",
+    "horizon": {
+      "quick_win": "Quick wins",
+      "medium_term": "Medium term",
+      "long_term": "Long term"
+    },
+    "complexity": "Implementation complexity {value}/5",
+    "assumptions": "Assumptions",
+    "steps": "Steps",
+    "changeManagement": "Team & training",
+    "quality": "Quality",
+    "tools": "Pricing",
+    "priceVerified": "Price verified {date}",
+    "priceUnverified": "Price not yet verified — check the vendor page",
+    "alternative": "Alternative (not counted in totals)",
+    "aiTool": "AI",
+    "severance": "Severance exposure",
+    "payroll": "Employer cost & severance by employee",
+    "gross": "Gross",
+    "employerCost": "Employer cost",
+    "severanceTopUp": "Severance top-up",
+    "salarySource": {
+      "user": "Exact",
+      "range": "Range",
+      "benchmark": "Benchmark",
+      "missing": "Missing"
+    },
+    "totalEmployerCost": "Total monthly employer cost",
+    "software": "Monthly software spend",
+    "lockedTitle": "See the money behind the hours",
+    "lockedBody": "Unlock exact P&L savings, ROI and payback, per-employee severance and Section 14 figures, the interactive simulator, a step-by-step plan and PDF export.",
+    "simulator": "Open ROI simulator",
+    "exportPdf": "Export PDF",
+    "markImplemented": "Mark as implemented",
+    "implemented": "Implemented",
+    "editAnswers": "Edit answers",
+    "openQuestions": "Open questions",
+    "employee": "Employee"
+  },
+  "simulator": {
+    "title": "ROI simulator",
+    "hint": "Change assumptions and see the plan update instantly. Nothing here is saved until you click Save.",
+    "multiplier": "Employer cost multiplier",
+    "horizon": "Horizon",
+    "usdToNis": "USD → ₪ rate",
+    "revenuePerHour": "Revenue per redirected hour (₪)",
+    "include": "Include in plan",
+    "fte": "Reduce position (FTE) by the freed hours",
+    "redirect": "Redirect freed hours to revenue work",
+    "swapTool": "Tool",
+    "saveScenario": "Save scenario",
+    "reset": "Reset",
+    "perEmployee": "Job scope per employee"
+  },
+  "pricing": {
+    "title": "Pricing",
+    "free": "Free",
+    "freeItems": "Bottleneck map · Where time is lost · General directions · Confidence score",
+    "paid": "Full analysis",
+    "paidPrice": "₪{price} one-time per diagnosis",
+    "paidItems": "Exact P&L savings · ROI & payback · Severance / Section 14 per employee · Interactive simulator · Step-by-step plan · PDF export",
+    "buy": "Unlock now",
+    "mockNote": "Test mode: payment is simulated, no card is charged.",
+    "success": "Unlocked! Redirecting to your report…"
+  },
+  "admin": {
+    "catalog": "Solutions & pricing repository",
+    "metrics": "KPIs",
+    "stale": "Needs verification",
+    "fresh": "Verified",
+    "lastVerified": "Last verified",
+    "never": "Never",
+    "markVerified": "Mark verified",
+    "verifyAi": "Check vendor page",
+    "proposals": "Pending price proposals",
+    "approve": "Approve",
+    "reject": "Reject",
+    "completion": "Diagnosis completion rate",
+    "ttv": "Median time to first insight",
+    "conversion": "Conversion to paid",
+    "northStar": "Businesses with ≥1 implemented recommendation",
+    "target": "Target {value}",
+    "started": "Started",
+    "reached": "Reached report"
+  },
+  "enum": {
+    "vertical": {
+      "professional_services": "Professional services",
+      "agency": "Digital / marketing agency",
+      "distribution": "Small distribution",
+      "real_estate": "Real estate brokerage",
+      "other": "Other"
+    },
+    "role": {
+      "admin_coordinator": "Administrative coordinator",
+      "office_manager": "Office manager",
+      "sales_rep": "Sales rep",
+      "account_manager": "Account manager",
+      "customer_service": "Customer service",
+      "bookkeeper": "Bookkeeper",
+      "operations_coordinator": "Operations / logistics coordinator",
+      "marketing_specialist": "Marketing specialist",
+      "designer": "Designer",
+      "professional": "Professional (consultant, lawyer, accountant…)",
+      "agent": "Agent / broker",
+      "manager": "Manager",
+      "other": "Other"
+    },
+    "process": {
+      "scheduling": "Scheduling meetings",
+      "data_entry": "Manual data entry",
+      "invoicing": "Invoicing & billing",
+      "reporting": "Internal reporting",
+      "lead_followup": "Lead follow-up",
+      "customer_inquiries": "Customer inquiries",
+      "document_prep": "Preparing documents & quotes",
+      "order_processing": "Order processing",
+      "inventory_updates": "Inventory updates",
+      "timesheets": "Timesheets",
+      "social_content": "Social media content",
+      "client_reporting": "Client reports",
+      "email_triage": "Email handling"
+    },
+    "usage": {
+      "high": "Daily, by most",
+      "medium": "Regularly",
+      "low": "Rarely",
+      "unknown": "Not sure"
+    },
+    "confidence": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "cap": {
+      "office_suite": "office suite",
+      "email": "email",
+      "file_storage": "file storage",
+      "video_meetings": "video meetings",
+      "docs": "documents",
+      "calendar": "calendar",
+      "team_chat": "team chat",
+      "customer_messaging": "customer messaging",
+      "project_management": "project management",
+      "crm": "CRM",
+      "scheduling": "scheduling",
+      "automation": "automation",
+      "invoicing": "invoicing",
+      "accounting": "accounting",
+      "inventory": "inventory",
+      "esign": "e-signature",
+      "document_automation": "document automation",
+      "timesheets": "time tracking",
+      "reporting": "reporting",
+      "client_reporting": "client reporting",
+      "live_chat": "live chat",
+      "helpdesk": "helpdesk",
+      "email_marketing": "email marketing",
+      "social_scheduling": "social scheduling",
+      "design": "design",
+      "design_pro": "professional design",
+      "ui_design": "UI design",
+      "password_mgmt": "password management",
+      "ai_assistant": "AI assistant",
+      "meeting_notes": "meeting notes",
+      "writing_assistant": "writing assistant"
+    }
+  },
+  "rec": {
+    "locked_rationale": "Unlock the full analysis to see costs, savings and the step-by-step plan.",
+    "cancel_duplicate": {
+      "title": "Cancel {cancel} — {keep} already covers it",
+      "bundle": "{keep} already includes {capability}, so the separate {cancel} subscription is a duplicate.",
+      "same": "{cancel} and {keep} both do {capability}. Keeping one removes a duplicate expense."
+    },
+    "reduce_seats": {
+      "title": "Remove {unused} unused {name} seats",
+      "rationale": "You pay for {seats} seats but only {active} are in use."
+    },
+    "review_low_usage": {
+      "title": "Review the rarely used {name} subscription",
+      "rationale": "{name} is reported as rarely used. If nobody depends on it, cancelling removes the full cost."
+    },
+    "process_change": {
+      "rationale": "{process} takes about {hours} team hours a month. A workflow change can remove part of it without buying software."
+    },
+    "automate": {
+      "title": "Automate {process} with {tool}",
+      "owned_title": "Use {tool} (already paid for) to automate {process}",
+      "rationale": "{process} takes about {hours} team hours a month; {tool} typically removes about {pct}% of that work."
+    },
+    "hire": {
+      "avoid_title": "Automate before hiring — the new position may not be needed",
+      "partial_title": "Hire a smaller position (about {pct}% scope) and automate the rest",
+      "locked_title": "An alternative to the planned hire",
+      "rationale": "The hire would absorb {needed} h/week. Automation covers about {automatable} h/week. A hire costs about ₪{hireCost}/month (employer cost) versus ₪{toolCost}/month in tools."
+    }
+  },
+  "pc": {
+    "booking_windows": {
+      "title": "Fixed booking windows for {process}",
+      "step1": "Define 2–3 fixed weekly slots for meetings.",
+      "step2": "Send clients a standard message with the slots instead of phone back-and-forth."
+    },
+    "shared_inbox_rules": {
+      "title": "Shared inbox rules for {process}",
+      "step1": "Create labels/folders and auto-sorting rules.",
+      "step2": "Assign one owner per category and agree on response times."
+    },
+    "single_source": {
+      "title": "One source of truth to cut {process}",
+      "step1": "Map where the same data is typed more than once.",
+      "step2": "Pick one system as the master and stop re-typing elsewhere."
+    },
+    "templates": {
+      "title": "Templates for {process}",
+      "step1": "Collect the 5 most common documents/quotes.",
+      "step2": "Turn them into fill-in templates in your existing office suite."
+    },
+    "standard_kpis": {
+      "title": "A standard report format for {process}",
+      "step1": "Agree on 5–7 fixed KPIs.",
+      "step2": "Use one template every period instead of building from scratch."
+    },
+    "faq_macros": {
+      "title": "Saved replies for {process}",
+      "step1": "List the 10 most frequent questions.",
+      "step2": "Write saved replies and share them with the team."
+    },
+    "batch_billing": {
+      "title": "Batch {process} once a week",
+      "step1": "Choose a fixed billing day.",
+      "step2": "Prepare all invoices together from one list."
+    },
+    "daily_logging": {
+      "title": "Daily 5-minute logging for {process}",
+      "step1": "Ask the team to log time at the end of each day.",
+      "step2": "Review weekly instead of reconstructing at month-end."
+    },
+    "followup_cadence": {
+      "title": "A fixed follow-up cadence for {process}",
+      "step1": "Define follow-up days (e.g. day 1, 3, 7).",
+      "step2": "Use a shared list sorted by next follow-up date."
+    },
+    "order_form": {
+      "title": "A standard order form for {process}",
+      "step1": "Create one structured order form for customers.",
+      "step2": "Reject free-text orders that need re-typing."
+    },
+    "cycle_counts": {
+      "title": "Cycle counts for {process}",
+      "step1": "Count a small part of stock every week.",
+      "step2": "Stop full manual counts."
+    },
+    "content_calendar": {
+      "title": "A monthly content calendar for {process}",
+      "step1": "Plan a month of posts in one session.",
+      "step2": "Reuse formats and templates."
+    }
+  },
+  "quality": {
+    "fewer_tools": "Fewer tools to learn and secure",
+    "consistency": "More consistent work",
+    "fewer_errors": "Fewer manual errors",
+    "less_onboarding": "No onboarding of a new employee"
+  },
+  "assume": {
+    "migration_hours": "About {hours} internal hours to move data and users.",
+    "cost_as_entered": "Savings equal the monthly cost you entered for {name}.",
+    "per_seat_linear": "The vendor charges per seat.",
+    "low_usage_confirm": "Confirm with the team that nobody depends on it before cancelling.",
+    "process_share": "A workflow change typically removes about {pct}% of this work.",
+    "benchmark_hours": "Hours are an industry benchmark — confirm them for a more precise result.",
+    "tool_share": "{tool} typically removes about {pct}% of this work.",
+    "setup_hours": "About {hours} internal hours to set up.",
+    "already_owned": "You already pay for {tool}, so there is no new license cost.",
+    "price_seats": "Priced for {seats} users.",
+    "severance_upper": "Severance up to ₪{amount} is included as a one-time cost (upper estimate).",
+    "fte_confirmed": "You confirmed the freed hours will reduce a position, so they count as P&L savings.",
+    "revenue_per_hour": "Each redirected hour is worth ₪{value} in revenue (your estimate).",
+    "revenue_unknown": "Hours are redirected to revenue work, but the value per hour is unknown — no revenue is counted.",
+    "time_not_money": "Freed time is not counted as money. Confirm a position reduction or redirect the hours to revenue work in the simulator to see financial impact.",
+    "hire_employer_cost": "Hire cost = ₪{gross} gross + {pct}% employer costs.",
+    "tool_cost_netted": "Tool costs (₪{cost}/month) are already deducted.",
+    "cost_avoidance_not_pnl": "This is cost avoidance — it doesn't reduce existing expenses on the P&L.",
+    "hire_severance_future": "A new hire without Section 14 would also add future severance liability."
+  },
+  "cm": {
+    "announce_switch": "Announce the switch and set a date; keep {keep} as the single tool.",
+    "ask_users_first": "Ask the team who uses it before cancelling.",
+    "pilot_one_team": "Pilot with one person or team for two weeks before rolling out.",
+    "training": "Plan about {hours} hours of training.",
+    "champion": "Appoint one internal owner (champion) for the change.",
+    "workload_review": "Review the team's workload with them — present it as removing busywork, not people."
+  },
+  "step": {
+    "export_data": "Export the data from {name}.",
+    "move_to": "Move the team and data to {keep}.",
+    "cancel_at_renewal": "Cancel {name} before the next renewal.",
+    "remove_seats": "Remove {unused} unused seats in {name}.",
+    "check_usage": "Check the {name} usage report or ask the team.",
+    "measure_after_30": "Measure the hours again after 30 days.",
+    "trial": "Start a free trial of {tool}.",
+    "configure": "Set it up for {process}.",
+    "train_team": "Train the team and set a go-live date.",
+    "pilot_before_hiring": "Run a {weeks}-week pilot before opening the position.",
+    "reassess_hire": "Reassess whether the hire is still needed."
+  },
+  "confidence": {
+    "add_salaries": "Add salaries (or ranges) for {count} employees currently on benchmark values.",
+    "exact_salaries": "Replace salary ranges with exact figures for {count} employees.",
+    "add_employees": "Add your team.",
+    "section14": "Confirm whether Section 14 applies for {count} employees.",
+    "confirm_hours": "Confirm the hours for {count} bottlenecks that use industry benchmarks.",
+    "add_bottlenecks": "Describe where the team spends time.",
+    "usage": "Tell us how much {count} tools are used.",
+    "add_software": "List your software subscriptions.",
+    "upload_files": "Optionally upload the team or software template for more precise data."
+  },
+  "q": {
+    "section14": "Does Section 14 apply to {title}?",
+    "tenure": "How many years has {title} worked with you?",
+    "revenue_per_hour": "How much revenue does one hour of sales/service work generate, on average?",
+    "usage": "How much is {name} actually used?"
+  },
+  "dir": {
+    "top_bottleneck": "Your biggest time sink is {process}: about {hours} team hours a month.",
+    "admin_overload": "Administrative work takes about {pct}% of team time (typical for your industry: {benchmark}%).",
+    "duplicates": "We found {count, plural, one {# overlapping software subscription} other {# overlapping software subscriptions}}.",
+    "underused": "{count, plural, one {# subscription looks} other {# subscriptions look}} underused.",
+    "process_first": "Some bottlenecks can be fixed by changing the workflow, before buying any technology.",
+    "hire_alternative": "There may be an alternative to the hire you're planning.",
+    "not_only_ai": "Several fixes don't require AI at all — standard automation is enough."
+  }
+}
