@@ -50,6 +50,7 @@
     "invalid": "This link is invalid or expired. Please request a new one."
   },
   "dashboard": {
+    "welcomeBack": "Thanks for coming back!",
     "title": "My diagnoses",
     "new": "New diagnosis",
     "empty": "No diagnoses yet.",
