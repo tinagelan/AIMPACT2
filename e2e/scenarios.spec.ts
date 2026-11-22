@@ -17,6 +17,7 @@ test("duplicate SaaS: free report hides money, paid report shows the saving", as
   await page.locator('select[name="vertical"]').selectOption("agency");
   await page.getByRole("button", { name: "Start the diagnosis" }).click();
   await expect(page).toHaveURL(/wizard/);
+  await page.getByTestId("celebration").getByRole("button").click(); // first-diagnosis welcome
 
   // Team
   await page.getByRole("button", { name: "Next", exact: true }).click();
@@ -96,4 +97,31 @@ test("double-clicking Start creates a single diagnosis", async ({ page }) => {
   await expect(page).toHaveURL(/wizard/);
   await page.goto("/en/app");
   await expect(page.getByTestId("diagnosis-card")).toHaveCount(1);
+});
+
+/** First diagnosis after sign-up shows confetti and a welcome message once; later diagnoses don't. */
+test("new user sees a celebration on their first diagnosis only", async ({ page }) => {
+  await signIn(page, `e2e-welcome-${Date.now()}@example.test`);
+
+  await page.goto("/en/app/new");
+  await page.locator('input[name="orgName"]').fill("Welcome Ltd");
+  await page.getByRole("button", { name: "Start the diagnosis" }).click();
+  await expect(page).toHaveURL(/wizard/);
+  const dialog = page.getByTestId("celebration");
+  await expect(dialog).toContainText("One step closer to career success");
+  await page.waitForTimeout(1500); // past the wizard's autosave, whose server refresh must not close the dialog
+  await expect(dialog).toBeVisible();
+  await dialog.getByRole("button", { name: "Let's go" }).click();
+  await expect(dialog).toBeHidden();
+
+  await page.reload();
+  await expect(page.getByRole("button", { name: "Next", exact: true })).toBeVisible();
+  await expect(page.getByTestId("celebration")).toHaveCount(0);
+
+  await page.goto("/en/app/new");
+  await page.locator('input[name="orgName"]').fill("Second Ltd");
+  await page.getByRole("button", { name: "Start the diagnosis" }).click();
+  await expect(page).toHaveURL(/wizard/);
+  await expect(page.getByRole("button", { name: "Next", exact: true })).toBeVisible();
+  await expect(page.getByTestId("celebration")).toHaveCount(0);
 });
