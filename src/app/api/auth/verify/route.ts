@@ -6,5 +6,5 @@ export async function GET(req: Request) {
   const token = url.searchParams.get("token") ?? "";
   const locale = url.searchParams.get("locale") === "en" ? "en" : "he";
   const ok = token ? await verifyLoginToken(token) : null;
-  return NextResponse.redirect(new URL(ok ? `/${locale}/app` : `/${locale}/login?error=invalid`, url.origin));
+  return NextResponse.redirect(new URL(ok ? `/${locale}/app?welcome=1` : `/${locale}/login?error=invalid`, url.origin));
 }
