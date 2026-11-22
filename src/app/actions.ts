@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { analyze, ENGINE_VERSION } from "@/engine/analyze";
@@ -11,6 +12,7 @@ import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { getOwnedDiagnosis } from "@/lib/diagnosis";
 import { track } from "@/lib/events";
+import { WELCOME_COOKIE } from "@/lib/welcome";
 import { profileSchema, VERTICALS } from "@/lib/profileSchema";
 import { paymentProvider, PRICE_NIS } from "@/paywall/payments";
 
@@ -26,9 +28,15 @@ export async function createDiagnosis(formData: FormData) {
   const input = createSchema.parse(Object.fromEntries(formData));
   if (!user) redirect(`/${input.locale}/login`);
   const profile: BusinessProfile = { ...emptyProfile(input.vertical), orgName: input.orgName, goal: input.goal };
+  // A user with no organization yet is finishing sign-up: their first diagnosis gets a welcome.
+  const isFirst = (await db.organization.count({ where: { ownerId: user.id } })) === 0;
   const org = await db.organization.create({ data: { ownerId: user.id, name: input.orgName, vertical: input.vertical } });
   const d = await db.diagnosis.create({ data: { orgId: org.id, profileJson: JSON.stringify(profile) } });
   await track("diagnosis_started", { userId: user.id, diagnosisId: d.id });
+  if (isFirst) {
+    // Read once by the wizard page; the welcome dialog deletes it, so a refresh doesn't replay it.
+    (await cookies()).set(WELCOME_COOKIE, d.id, { path: "/", maxAge: 120, sameSite: "lax" });
+  }
   redirect(`/${input.locale}/diagnosis/${d.id}/wizard`);
 }
 

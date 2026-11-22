@@ -84,6 +84,10 @@
     "start": "להתחלת האבחון",
     "starting": "יוצר אבחון…"
   },
+  "celebration": {
+    "title": "צעד אחד קדימה להצלחה בקריירה",
+    "cta": "יאללה, מתחילים"
+  },
   "wizard": {
     "stepOf": "שלב {current} מתוך {total}",
     "steps": {
