@@ -58,7 +58,17 @@
     "in_progress": "In progress",
     "completed": "Completed",
     "paid": "Full analysis",
-    "free": "Free"
+    "free": "Free",
+    "delete": "Delete",
+    "deleteAria": "Delete the diagnosis of {name}",
+    "deleteTitle": "Delete this diagnosis?",
+    "deleteBody": "The diagnosis of \"{name}\", its answers and reports will be permanently deleted. This cannot be undone.",
+    "deletePaidWarning": "This diagnosis was unlocked with a payment. Deleting it removes access to the full analysis; the payment is not refunded.",
+    "cancel": "Cancel",
+    "confirmDelete": "Delete permanently",
+    "deleting": "Deleting…",
+    "deleted": "The diagnosis of \"{name}\" was deleted.",
+    "deleteError": "Could not delete \"{name}\". Please try again."
   },
   "onboarding": {
     "title": "Let's start",
@@ -71,7 +81,8 @@
     "privacy2": "Salaries can be entered as ranges.",
     "privacy3": "Uploaded files are read in memory and deleted immediately; only the fields you confirm are stored.",
     "privacy4": "Salary figures are never sent to AI models.",
-    "start": "Start the diagnosis"
+    "start": "Start the diagnosis",
+    "starting": "Creating…"
   },
   "wizard": {
     "stepOf": "Step {current} of {total}",

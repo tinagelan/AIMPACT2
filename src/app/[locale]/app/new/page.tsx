@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { createDiagnosis } from "@/app/actions";
-import { Button, Card, Field, Input, Select } from "@/components/ui";
+import { SubmitButton } from "@/components/SubmitButton";
+import { Card, Field, Input, Select } from "@/components/ui";
 import { redirect } from "@/i18n/navigation";
 import { currentUser } from "@/lib/auth";
 import { VERTICALS } from "@/lib/profileSchema";
@@ -33,7 +34,7 @@ export default async function NewDiagnosis({ params }: { params: Promise<{ local
           <Field label={t("goal")}>
             <textarea name="goal" maxLength={500} rows={3} placeholder={t("goalPlaceholder")} className="rounded-md border border-line p-3 text-sm" />
           </Field>
-          <Button>{t("start")}</Button>
+          <SubmitButton pendingLabel={t("starting")}>{t("start")}</SubmitButton>
         </form>
       </Card>
       <Card className="bg-brand-soft">

@@ -8,7 +8,8 @@ export type EventName =
   | "upgrade_clicked"
   | "upgrade_converted"
   | "pdf_exported"
-  | "recommendation_implemented";
+  | "recommendation_implemented"
+  | "diagnosis_deleted";
 
 export async function track(name: EventName, opts: { userId?: string; diagnosisId?: string; props?: Record<string, unknown> } = {}) {
   try {
